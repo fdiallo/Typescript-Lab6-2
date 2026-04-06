@@ -1,0 +1,94 @@
+
+
+export const fetchProductCatalog = (): Promise<{ id: number; name: string; price: number }[]> => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            if (Math.random() < 0.8) {
+                resolve([
+                    { id: 1, name: "Laptop", price: 1200 },
+                    { id: 2, name: "Headphones", price: 200 },
+                ]);
+            } else {
+                reject("Failed to fetch product catalog");
+            }
+
+            console.log("------------------------------------------------------------------")
+
+        }, 200);
+    });
+};
+
+
+fetchProductCatalog()
+    .then(
+        (products) => {
+            console.log("Product list:", products)
+        }
+    )
+    .catch((error) => { console.error("Error: ", error) })
+
+
+export const fetchProductReviews = (productId: number):
+    Promise<{ id: number; name: string; price: number }[]> => {
+
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const produtcts = [
+                { id: 1, name: "Laptop", price: 1200 },
+                { id: 2, name: "Headphones", price: 200 },
+                { id: 3, name: "TV", price: 1000 },
+            ]
+            const findProduct = produtcts.find(product => product.id === productId)
+
+            if (findProduct) {
+                resolve([{ id: productId, name: findProduct.name, price: findProduct.price }])
+            } else {
+                reject("Failed to fetch product catalog");
+            }
+
+            console.log("------------------------------------------------------------------")
+
+        }, 1500)
+    })
+}
+
+fetchProductReviews(2)
+    .then((product) => {
+        console.log("Reviews For Product: ", product)
+    })
+    .catch((error) => { console.log(error) })
+
+fetchProductReviews(7)
+    .then((product) => {
+        console.log("Reviews For Product: ", product)
+    })
+    .catch((error) => { console.log(error) })
+
+
+const fetchSalesReport = (): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            const produtcts = [
+                { id: 1, name: "Laptop", price: 1200 },
+                { id: 2, name: "Headphones", price: 200 },
+                { id: 3, name: "TV", price: 1000 },
+            ]
+
+            const totalSales = produtcts.reduce((acc, curr) => acc + curr.price, 0)
+            const unitsSold = produtcts.length
+            const averagePrice = produtcts.reduce((acc, curr) => acc + curr.price, 0) / produtcts.length
+            if (unitsSold > 0) {
+                resolve(`Total Sales: ${totalSales}, Unit Sold: ${unitsSold}, Average Price: ${averagePrice}`)
+            } else {
+                reject("Failed to fetch sales report")
+            }
+
+            console.log("------------------------------------------------------------------")
+
+        }, 3000)
+    })
+}
+
+fetchSalesReport()
+    .then((salesReport) => { console.log("Sales Report: ", salesReport) })
+    .catch((error) => { console.log(error) })
