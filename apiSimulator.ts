@@ -1,7 +1,9 @@
-
+import { DataError } from ".";
+import { NetworkError } from ".";
 
 export const fetchProductCatalog = (): Promise<{ id: number; name: string; price: number }[]> => {
     return new Promise((resolve, reject) => {
+
         setTimeout(() => {
             if (Math.random() < 0.8) {
                 resolve([
@@ -9,12 +11,13 @@ export const fetchProductCatalog = (): Promise<{ id: number; name: string; price
                     { id: 2, name: "Headphones", price: 200 },
                 ]);
             } else {
-                reject("Failed to fetch product catalog");
+                //reject("Failed to fetch product catalog");
+                reject(new NetworkError("Failed to fetch product catalog"))
             }
-
             console.log("------------------------------------------------------------------")
 
-        }, 200);
+        }, 500);
+
     });
 };
 
@@ -33,7 +36,8 @@ export const fetchProductReviews = (productId: number):
             if (findProduct) {
                 resolve([{ id: productId, name: findProduct.name, price: findProduct.price }])
             } else {
-                reject("Failed to fetch product catalog");
+                //reject("Failed to fetch product catalog");
+                reject(new DataError("Failed to fetch product reviews"))
             }
 
             console.log("------------------------------------------------------------------")
@@ -55,10 +59,10 @@ export const fetchSalesReport = (): Promise<string> => {
             const totalSales = produtcts.reduce((acc, curr) => acc + curr.price, 0)
             const unitsSold = produtcts.length
             const averagePrice = produtcts.reduce((acc, curr) => acc + curr.price, 0) / produtcts.length
-            if (unitsSold > 0) {
+            if (Math.random() < 0.8) {
                 resolve(`Total Sales: ${totalSales}, Unit Sold: ${unitsSold}, Average Price: ${averagePrice}`)
             } else {
-                reject("Failed to fetch sales report")
+                reject(new DataError("Failed to fetch sales report"))
             }
 
             console.log("------------------------------------------------------------------")
