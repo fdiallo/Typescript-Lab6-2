@@ -18,16 +18,6 @@ export const fetchProductCatalog = (): Promise<{ id: number; name: string; price
     });
 };
 
-
-fetchProductCatalog()
-    .then(
-        (products) => {
-            console.log("Product list:", products)
-        }
-    )
-    .catch((error) => { console.error("Error: ", error) })
-
-
 export const fetchProductReviews = (productId: number):
     Promise<{ id: number; name: string; price: number }[]> => {
 
@@ -52,20 +42,8 @@ export const fetchProductReviews = (productId: number):
     })
 }
 
-fetchProductReviews(2)
-    .then((product) => {
-        console.log("Reviews For Product: ", product)
-    })
-    .catch((error) => { console.log(error) })
 
-fetchProductReviews(7)
-    .then((product) => {
-        console.log("Reviews For Product: ", product)
-    })
-    .catch((error) => { console.log(error) })
-
-
-const fetchSalesReport = (): Promise<string> => {
+export const fetchSalesReport = (): Promise<string> => {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             const produtcts = [
@@ -85,10 +63,6 @@ const fetchSalesReport = (): Promise<string> => {
 
             console.log("------------------------------------------------------------------")
 
-        }, 3000)
+        }, 1000)
     })
 }
-
-fetchSalesReport()
-    .then((salesReport) => { console.log("Sales Report: ", salesReport) })
-    .catch((error) => { console.log(error) })
